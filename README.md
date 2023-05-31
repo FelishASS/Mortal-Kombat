@@ -41,6 +41,6 @@ https://user-images.githubusercontent.com/15172744/190894691-c52ac22d-b76c-4890-
 
 ## 6. Created By:
 
-Name:
+Name: Arsh Shafi
 
-Project Name:
+Project Name: Street Fighter Model
