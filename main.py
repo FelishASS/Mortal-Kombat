@@ -59,7 +59,7 @@ HERO_DATA = [HERO_SIZE, HERO_SCALE, HERO_OFFSET]
 
 #load music and sounds
 pygame.mixer.music.load("assets/audio/music1.mp3")
-pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.set_volume(1)
 pygame.mixer.music.play(-1, 0.0, 5000)
 sword_fx = pygame.mixer.Sound("assets/audio/sword.wav")
 sword_fx.set_volume(0.5)
