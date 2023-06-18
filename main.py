@@ -48,9 +48,13 @@ HUNTER_SIZE = 150
 HUNTER_SCALE = 4.3
 HUNTER_OFFSET = [72, 52]
 HUNTER_DATA = [HUNTER_SIZE, HUNTER_SCALE, HUNTER_OFFSET]
+NECRO_SIZE = 125
+NECRO_SCALE = 4
+NECRO_OFFSET = [72, 40]
+NECRO_DATA = [NECRO_SIZE, NECRO_SCALE, NECRO_OFFSET]
 
 #load music and sounds
-pygame.mixer.music.load("assets/audio/music.mp3")
+pygame.mixer.music.load("assets/audio/music1.mp3")
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1, 0.0, 5000)
 sword_fx = pygame.mixer.Sound("assets/audio/sword.wav")
@@ -59,7 +63,7 @@ magic_fx = pygame.mixer.Sound("assets/audio/magic.wav")
 magic_fx.set_volume(0.75)
 
 #load background image
-bg_image = pygame.image.load("assets/images/background/background.jpg").convert_alpha()
+bg_image = pygame.image.load("assets/images/background/pixel_art___does_not_think_by_vidreview_df88ngk-fullview.jpg").convert_alpha()
 bg_menu = pygame.image.load("assets/images/background/Background Menu.jpeg").convert_alpha()
 
 #load spritesheets
@@ -67,6 +71,7 @@ warrior_sheet = pygame.image.load("assets/images/warrior/Sprites/warrior.png").c
 wizard_sheet = pygame.image.load("assets/images/wizard/Sprites/wizard.png").convert_alpha()
 martial_sheet = pygame.image.load("assets\images\Martial Hero\Sprites\Merged_document__3_-removebg.png").convert_alpha()
 hunter_sheet = pygame.image.load("assets\images\Huntress\Sprites\Merged_document__4_-removebg.png").convert_alpha()
+necromancer_sheet = pygame.image.load("assets\images\Evil Wizard\Sprites\MergedImages (2).png").convert_alpha()
 
 #load vicory image
 victory_img = pygame.image.load("assets/images/icons/victory.png").convert_alpha()
@@ -76,6 +81,7 @@ WARRIOR_ANIMATION_STEPS = [10, 8, 1, 7, 7, 3, 7]
 WIZARD_ANIMATION_STEPS = [8, 8, 1, 8, 8, 3, 7]
 MARTIAL_ANIMATION_STEPS = [8, 8, 2, 6, 6, 4, 6]
 HUNTER_ANIMATION_STEPS = [8, 8, 2, 4, 7, 3, 8]
+NECROMANCER_ANIMATION_STEPS = [8, 8, 8, 8, 8, 4, 5]
 
 #define font
 count_font = pygame.font.Font("assets/fonts/turok.ttf", 80)
@@ -132,7 +138,7 @@ def game(fighter_1, fighter_2, intro_count, last_count_update, round_over):
   run = True
   time = 5400
   while run:
-
+    Refscore = score[0] + score[1]
     clock.tick(FPS)
 
     #draw background
@@ -145,14 +151,14 @@ def game(fighter_1, fighter_2, intro_count, last_count_update, round_over):
     #time  
     if time // 3600 ==1:
       if time%3600 // 60 < 10:
-        draw_text("Time: 01:0"+ str(time%3600 // 60), score_font, RED, 430, 60)  
+        draw_text("Time: 01:0"+ str(time%3600 // 60), score_font, RED, 430, 20)  
       else:      
-        draw_text("Time: 01:"+ str(time%3600 // 60), score_font, RED, 430, 60)
+        draw_text("Time: 01:"+ str(time%3600 // 60), score_font, RED, 430, 20)
     else:
       if time%3600 // 60 < 10:
-        draw_text("Time: 00:0"+ str(time%3600 // 60), score_font, RED, 430, 60)  
+        draw_text("Time: 00:0"+ str(time%3600 // 60), score_font, RED, 430, 20)  
       else:      
-        draw_text("Time: 00:"+ str(time%3600 // 60), score_font, RED, 430, 60)  
+        draw_text("Time: 00:"+ str(time%3600 // 60), score_font, RED, 430, 20)  
     time = time-1
     if time == 0:
        run = False
@@ -212,7 +218,8 @@ def game(fighter_1, fighter_2, intro_count, last_count_update, round_over):
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     run = False
-
+    if score[0] + score[1] !=  Refscore:
+       time = 5400
     #update display
     pygame.display.update()
 
@@ -294,6 +301,8 @@ def options(intro_count, last_count_update, round_over):
         button_2 = pygame.Rect(395, 180, 200, 50)
         button_3 = pygame.Rect(395, 260, 200, 50)
         button_4 = pygame.Rect(395, 340, 200, 50)
+        button_5 = pygame.Rect(395, 420, 200, 50)
+        button_6 = pygame.Rect(395, 500, 200, 50)
         
         if step == 3:
             game(fighter_1, fighter_2, intro_count, last_count_update, round_over)
@@ -350,16 +359,41 @@ def options(intro_count, last_count_update, round_over):
               if step == 1:
                 step = step + 1
                 fighter_1 = Fighter(1, 200, 310, False, HUNTER_DATA, hunter_sheet, HUNTER_ANIMATION_STEPS, sword_fx)  
+        
+        if button_5.collidepoint((mx, my)):
+            if click:
+              if step == 2:
+                step = step + 1                
+                fighter_2 = Fighter(2, 700, 310, True, NECRO_DATA, necromancer_sheet, NECROMANCER_ANIMATION_STEPS, magic_fx) 
+
+              if step == 1:
+                step = step + 1
+                fighter_1 = Fighter(1, 200, 310, False, NECRO_DATA, necromancer_sheet, NECROMANCER_ANIMATION_STEPS, magic_fx)
+
+        if button_6.collidepoint((mx, my)):
+            if click:
+              if step == 2:
+                step = step + 1                
+                fighter_2 = Fighter(2, 700, 310, True, NECRO_DATA, necromancer_sheet, NECROMANCER_ANIMATION_STEPS, magic_fx) 
+
+              if step == 1:
+                step = step + 1
+                fighter_1 = Fighter(1, 200, 310, False, NECRO_DATA, necromancer_sheet, NECROMANCER_ANIMATION_STEPS, magic_fx)
+
         pygame.draw.rect(screen, (255, 0, 0), button_1, width=4, border_radius=10)
         pygame.draw.rect(screen, (255, 0, 0), button_2, width=4, border_radius=10)
         pygame.draw.rect(screen, (255, 0, 0), button_3, width=4, border_radius=10)
         pygame.draw.rect(screen, (255, 0, 0), button_4, width=4, border_radius=10)
+        pygame.draw.rect(screen, (255, 0, 0), button_5, width=4, border_radius=10)
+        pygame.draw.rect(screen, (255, 0, 0), button_6, width=4, border_radius=10)
 
         #writing text on top of button
         draw_textt('WARRIOR', score_font, (255,255,255), screen, 450, 105)
         draw_textt('WIZARD', score_font, (255,255,255), screen, 450, 185)
         draw_textt('MARTIAL HERO', score_font, (255,255,255), screen, 410, 265)
         draw_textt('HUNTRESS', score_font, (255,255,255), screen, 430, 345)
+        draw_textt('EVIL WIZARD', score_font, (255,255,255), screen, 420, 425)
+        draw_textt('KING', score_font, (255,255,255), screen, 470, 505)
 
         draw_textt('Press ESC to go back!', score_font, (255,255,255), screen, 380, 555)
        
