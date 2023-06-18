@@ -52,6 +52,10 @@ NECRO_SIZE = 125
 NECRO_SCALE = 4
 NECRO_OFFSET = [72, 40]
 NECRO_DATA = [NECRO_SIZE, NECRO_SCALE, NECRO_OFFSET]
+HERO_SIZE = 180
+HERO_SCALE = 3.6
+HERO_OFFSET = [72, 60]
+HERO_DATA = [HERO_SIZE, HERO_SCALE, HERO_OFFSET]
 
 #load music and sounds
 pygame.mixer.music.load("assets/audio/music1.mp3")
@@ -72,6 +76,7 @@ wizard_sheet = pygame.image.load("assets/images/wizard/Sprites/wizard.png").conv
 martial_sheet = pygame.image.load("assets\images\Martial Hero\Sprites\Merged_document__3_-removebg.png").convert_alpha()
 hunter_sheet = pygame.image.load("assets\images\Huntress\Sprites\Merged_document__4_-removebg.png").convert_alpha()
 necromancer_sheet = pygame.image.load("assets\images\Evil Wizard\Sprites\MergedImages (2).png").convert_alpha()
+hero_sheet = pygame.image.load("assets\images\Hero Knight\MergedImages (1).png").convert_alpha()
 
 #load vicory image
 victory_img = pygame.image.load("assets/images/icons/victory.png").convert_alpha()
@@ -82,6 +87,7 @@ WIZARD_ANIMATION_STEPS = [8, 8, 1, 8, 8, 3, 7]
 MARTIAL_ANIMATION_STEPS = [8, 8, 2, 6, 6, 4, 6]
 HUNTER_ANIMATION_STEPS = [8, 8, 2, 4, 7, 3, 8]
 NECROMANCER_ANIMATION_STEPS = [8, 8, 8, 8, 8, 4, 5]
+HERO_ANIMATION_STEPS = [11, 8, 3, 7, 7, 4, 11]
 
 #define font
 count_font = pygame.font.Font("assets/fonts/turok.ttf", 80)
@@ -374,11 +380,11 @@ def options(intro_count, last_count_update, round_over):
             if click:
               if step == 2:
                 step = step + 1                
-                fighter_2 = Fighter(2, 700, 310, True, NECRO_DATA, necromancer_sheet, NECROMANCER_ANIMATION_STEPS, magic_fx) 
+                fighter_2 = Fighter(2, 700, 310, True, HERO_DATA, hero_sheet, HERO_ANIMATION_STEPS, sword_fx) 
 
               if step == 1:
                 step = step + 1
-                fighter_1 = Fighter(1, 200, 310, False, NECRO_DATA, necromancer_sheet, NECROMANCER_ANIMATION_STEPS, magic_fx)
+                fighter_1 = Fighter(1, 200, 310, False, HERO_DATA, hero_sheet, HERO_ANIMATION_STEPS, sword_fx)
 
         pygame.draw.rect(screen, (255, 0, 0), button_1, width=4, border_radius=10)
         pygame.draw.rect(screen, (255, 0, 0), button_2, width=4, border_radius=10)
@@ -393,7 +399,7 @@ def options(intro_count, last_count_update, round_over):
         draw_textt('MARTIAL HERO', score_font, (255,255,255), screen, 410, 265)
         draw_textt('HUNTRESS', score_font, (255,255,255), screen, 430, 345)
         draw_textt('EVIL WIZARD', score_font, (255,255,255), screen, 420, 425)
-        draw_textt('KING', score_font, (255,255,255), screen, 470, 505)
+        draw_textt('CYBERTRON', score_font, (255,255,255), screen, 430, 505)
 
         draw_textt('Press ESC to go back!', score_font, (255,255,255), screen, 380, 555)
        
