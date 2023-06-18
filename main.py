@@ -130,6 +130,7 @@ fighter_2 = Fighter(2, 700, 310, True, WIZARD_DATA, wizard_sheet, WIZARD_ANIMATI
 
 def game(fighter_1, fighter_2, intro_count, last_count_update, round_over):
   run = True
+  time = 5400
   while run:
 
     clock.tick(FPS)
@@ -140,8 +141,24 @@ def game(fighter_1, fighter_2, intro_count, last_count_update, round_over):
     #show player stats
     draw_health_bar(fighter_1.health, 20, 20)
     draw_health_bar(fighter_2.health, 580, 20)
+
+    #time  
+    if time // 3600 ==1:
+      if time%3600 // 60 < 10:
+        draw_text("Time: 01:0"+ str(time%3600 // 60), score_font, RED, 430, 60)  
+      else:      
+        draw_text("Time: 01:"+ str(time%3600 // 60), score_font, RED, 430, 60)
+    else:
+      if time%3600 // 60 < 10:
+        draw_text("Time: 00:0"+ str(time%3600 // 60), score_font, RED, 430, 60)  
+      else:      
+        draw_text("Time: 00:"+ str(time%3600 // 60), score_font, RED, 430, 60)  
+    time = time-1
+    if time == 0:
+       run = False
+
     draw_text("P1: " + str(score[0]), score_font, RED, 20, 60)
-    draw_text("P2: " + str(score[1]), score_font, RED, 580, 60)
+    draw_text("P2: " + str(score[1]), score_font, RED, 920, 60)
 
     #update countdown
     if intro_count <= 0:
